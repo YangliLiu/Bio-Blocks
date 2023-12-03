@@ -22,27 +22,28 @@ import LoadW from './tryptophan';
 import LoadY from './tyrosine';
 import LoadV from './valine ';
 
+
 const images = [
-  'http://cdn.futura-sciences.us/builds/images/thumbs/d/d6df144463_alanine-dp.png',
-  'http://cdn.futura-sciences.us/builds/images/thumbs/1/13d0b48ffd_arginine-photohounddp.png',
-  'http://cdn.futura-sciences.us/builds/images/thumbs/2/23a425b941_asparagine-benmillsdp.png',
-  'http://cdn.futura-sciences.us/builds/images/thumbs/f/f97dc94d41_acideaspartique-benmillsdp.png',
-  'http://cdn.futura-sciences.us/builds/images/thumbs/2/2d565f8395_cysteine-photohounddp.png',
-  'http://cdn.futura-sciences.us/builds/images/thumbs/4/4af3ddd760_glutamine-dp.png',
-  'http://cdn.futura-sciences.us/builds/images/thumbs/3/3fc3051d78_acideglutamique-photohounddp-01.png',
-  'https://www.researchgate.net/publication/365003765/figure/fig1/AS:11431281094977374@1667666881490/A-ball-stick-representation-of-a-glycine-molecule-The-presence-or-absence-of-lower.png',
-  'http://cdn.futura-sciences.us/builds/images/thumbs/f/f498a30d57_histidine-dp.png',
-  'http://cdn.futura-sciences.us/builds/images/thumbs/3/343e18b9f2_isoleucine-dp.png',
-  'http://cdn.futura-sciences.us/builds/images/thumbs/8/8413a1df5b_leucine-benjahbmm27wikidp.png',
-  'http://cdn.futura-sciences.us/builds/images/thumbs/0/0dc08220ba_lysine.png',
-  'http://cdn.futura-sciences.us/builds/images/thumbs/3/34f9aed8c1_methionine-dp.png',
-  'http://cdn.futura-sciences.us/builds/images/thumbs/2/22abcc83c1_phenylalanine-benjahbmm27wikidp.png',
-  'http://cdn.futura-sciences.us/builds/images/thumbs/e/e45666afe4_proline-benjahbmm27wikidp.png',
-  'http://cdn.futura-sciences.us/builds/images/thumbs/5/50264f0e11_serine-benmillswikidp.png',
-  'http://cdn.futura-sciences.us/builds/images/thumbs/0/0dc02fc16e_threonine-benmillswikidp.png',
-  'http://cdn.futura-sciences.us/builds/images/thumbs/7/7d0a580134_tryptophane-benjahwikidp.png',
-  'http://cdn.futura-sciences.us/builds/images/thumbs/7/76c7940653_tyrosine-dp.png',
-  'http://cdn.futura-sciences.us/builds/images/thumbs/2/24c4d59633_valine-benjahwikidp.png'
+  '/alanine.png',
+  '/arginine.png',
+  '/asparagine.png',
+  '/acideaspartique.png',
+  '/cysteine.png',
+  '/glutamine.png',
+  '/acideglutamique.png',
+  '/glycine.png',
+  '/histidine.png',
+  '/isoleucine.png',
+  '/leucine.png',
+  '/lysine.png',
+  '/methionine.png',
+  '/phenylalanine.png',
+  '/proline.png',
+  '/serine.png',
+  '/threonine.png',
+  '/tryptophane.png',
+  '/tyrosine.png',
+  '/valine.png'
 ];
 
 const imagesPerPage = 4;
