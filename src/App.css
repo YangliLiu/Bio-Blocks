@@ -1,0 +1,97 @@
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Hide scrollbars */
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  position: fixed;
+  top: 43%;
+  left: 40%;
+  transform: translate(-50%, -50%);
+  font-size: 4.5rem;
+  text-align: center;
+  z-index: 1;
+}
+
+
+@media only screen and (max-width: 600px) {
+  .title {
+    font-size: 3rem;
+    left: 23%;
+    top: 38%;
+  }
+}
+
+@media only screen and (min-width: 601px) and (max-width: 768px) {
+  .title {
+    font-size: 3.5rem;
+    left: 36%;
+    top: 40%;
+  }
+}
+
+@media only screen and (width: 1024px) and (height: 600px) {
+  .title {
+    font-size: 3.3rem;
+    left: 40%;
+    top: 38%;
+  }
+}
+
+@media only screen and (width: 1280px) and (height: 800px) {
+  .title {
+    font-size: 4rem;
+    left: 40%;
+    top: 42%;
+  }
+}
+
+@media only screen and (width: 820px) and (height: 1180px) {
+  .title {
+    font-size: 4rem;
+    left: 33%;
+    top: 44%;
+  }
+}
+
+@media only screen and (width: 540px) and (height: 720px) {
+  .title {
+    font-size: 3rem;
+    left: 32%;
+    top: 44%;
+  }
+}
+
+.image-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  height: 100vh;
+}
+
+.image-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.image-container img {
+  width: 100%; /* Adjust the scaling factor as needed */
+  height: 100%;
+  object-fit: scale-down; /* Ensure the image fits well into its container */
+  object-position: center center; /* Center the image */
+}
+
+.image-container.top {
+  grid-row: span 1;
+}
+
+.image-container.bottom {
+  grid-row: span 1;
+}
