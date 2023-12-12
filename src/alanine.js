@@ -1,5 +1,7 @@
 import  {Canvas} from "@react-three/fiber";
 import {useGLTF, Stage, PresentationControls, Html} from "@react-three/drei";
+import { storage } from './firebase';
+import { ref, getDownloadURL } from 'firebase/storage';
 
 function A(props){
   const {scene} = useGLTF("/A.glb");
@@ -7,6 +9,20 @@ function A(props){
 }
 
 function LoadA({ onBackClick }) {
+  const handleDownloadZip = async () => {
+    try {
+      const alanineRef = ref(storage, 'alanine.zip'); // Adjust the path accordingly
+      const downloadUrl = await getDownloadURL(alanineRef);
+      const link = document.createElement('a');
+      link.href = downloadUrl;
+      link.download = 'alanine.zip';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error('Error getting download URL:', error);
+    }
+  };
 
     return (
       <Canvas dpr={[1,2]} shadows camera={{fov:45}} style={{"position":"absolute"}}>
@@ -27,6 +43,19 @@ function LoadA({ onBackClick }) {
                 border: 'none', // Remove border
                 cursor: 'pointer', // Add cursor pointer for better UX
         }} >Back to Amino Acid List</button>
+        <button
+            onClick={handleDownloadZip}
+            style={{
+              borderRadius: '10px',
+              padding: '10px',
+              backgroundColor: '#1061e3',
+              color: 'white',
+              border: 'none',
+              marginLeft: '10px',
+              cursor: 'pointer',
+            }}
+          >
+            Download Lego Set</button>
           <p>
             <strong>Alanine (symbol Ala or A)</strong>, or α-alanine, is an α-amino acid that is used in the biosynthesis
             of proteins. It contains an amine group and a carboxylic acid group, both attached to the central carbon atom

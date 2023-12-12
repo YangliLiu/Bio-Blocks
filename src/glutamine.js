@@ -1,5 +1,7 @@
 import  {Canvas} from "@react-three/fiber";
 import {useGLTF, Stage, PresentationControls, Html} from "@react-three/drei";
+import { storage } from './firebase';
+import { ref, getDownloadURL } from 'firebase/storage';
 
 function Q(props){
   const {scene} = useGLTF("/Q.glb");
@@ -7,7 +9,20 @@ function Q(props){
 }
 
 function LoadQ({ onBackClick }) {
-
+  const handleDownloadZip = async () => {
+    try {
+      const glutamineRef = ref(storage, 'glutamine.zip'); // Adjust the path accordingly
+      const downloadUrl = await getDownloadURL(glutamineRef);
+      const link = document.createElement('a');
+      link.href = downloadUrl;
+      link.download = 'glutamine.zip';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error('Error getting download URL:', error);
+    }
+  };
     return (
       <Canvas dpr={[1,2]} shadows camera={{fov:45}} style={{"position":"absolute"}}>
         <color attach="background" args={["#7F88D5"]}/>
@@ -27,6 +42,19 @@ function LoadQ({ onBackClick }) {
                 border: 'none', // Remove border
                 cursor: 'pointer', // Add cursor pointer for better UX
         }} >Back to Amino Acid List</button>
+        <button
+            onClick={handleDownloadZip}
+            style={{
+              borderRadius: '10px',
+              padding: '10px',
+              backgroundColor: '#654EBF',
+              color: 'white',
+              border: 'none',
+              marginLeft: '10px',
+              cursor: 'pointer',
+            }}
+          >
+            Download Lego Set</button>
           <p>
             <strong>Glutamine (symbol Gln or Q)</strong>, is an α-amino acid that is used in the biosynthesis of proteins. 
             Its side chain is similar to that of glutamic acid, except the carboxylic acid group is replaced by an amide. 

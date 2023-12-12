@@ -1,5 +1,7 @@
 import  {Canvas} from "@react-three/fiber";
 import {useGLTF, Stage, PresentationControls, Html} from "@react-three/drei";
+import { storage } from './firebase';
+import { ref, getDownloadURL } from 'firebase/storage';
 
 function R(props){
   const {scene} = useGLTF("/R.glb");
@@ -7,6 +9,20 @@ function R(props){
 }
 
 function LoadR({ onBackClick }) {
+  const handleDownloadZip = async () => {
+    try {
+      const arginineRef = ref(storage, 'arginine.zip'); // Adjust the path accordingly
+      const downloadUrl = await getDownloadURL(arginineRef);
+      const link = document.createElement('a');
+      link.href = downloadUrl;
+      link.download = 'arginine.zip';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error('Error getting download URL:', error);
+    }
+  };
 
     return (
       <Canvas dpr={[1,2]} shadows camera={{fov:45}} style={{"position":"absolute"}}>
@@ -27,6 +43,19 @@ function LoadR({ onBackClick }) {
                 border: 'none', // Remove border
                 cursor: 'pointer', // Add cursor pointer for better UX
         }} >Back to Amino Acid List</button>
+        <button
+            onClick={handleDownloadZip}
+            style={{
+              borderRadius: '10px',
+              padding: '10px',
+              backgroundColor: '#1061e3',
+              color: 'white',
+              border: 'none',
+              marginLeft: '10px',
+              cursor: 'pointer',
+            }}
+          >
+            Download Lego Set</button>
           <p>
             <strong>Arginine (symbol Arg or R)</strong>, is the amino acid with the formula (H2N)(HN)CN(H)(CH2)3CH(NH2)CO2H. 
             The molecule features a guanidino group appended to a standard amino acid framework. At physiological pH, the carboxylic acid is deprotonated (−CO2−) and 

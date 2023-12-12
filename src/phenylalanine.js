@@ -1,5 +1,7 @@
 import  {Canvas} from "@react-three/fiber";
 import {useGLTF, Stage, PresentationControls, Html} from "@react-three/drei";
+import { storage } from './firebase';
+import { ref, getDownloadURL } from 'firebase/storage';
 
 function F(props){
   const {scene} = useGLTF("/F.glb");
@@ -7,6 +9,20 @@ function F(props){
 }
 
 function LoadF({ onBackClick }) {
+  const handleDownloadZip = async () => {
+    try {
+      const phenylalanineRef = ref(storage, 'phenylalanine.zip'); // Adjust the path accordingly
+      const downloadUrl = await getDownloadURL(phenylalanineRef);
+      const link = document.createElement('a');
+      link.href = downloadUrl;
+      link.download = 'phenylalanine.zip';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error('Error getting download URL:', error);
+    }
+  };
 
     return (
       <Canvas dpr={[1,2]} shadows camera={{fov:45}} style={{"position":"absolute"}}>
@@ -27,6 +43,19 @@ function LoadF({ onBackClick }) {
                 border: 'none', // Remove border
                 cursor: 'pointer', // Add cursor pointer for better UX
         }} >Back to Amino Acid List</button>
+        <button
+            onClick={handleDownloadZip}
+            style={{
+              borderRadius: '10px',
+              padding: '10px',
+              backgroundColor: '#449D09',
+              color: 'white',
+              border: 'none',
+              marginLeft: '10px',
+              cursor: 'pointer',
+            }}
+          >
+            Download Lego Set</button>
           <p>
             <strong>Phenylalanine (symbol Phe or F)</strong>is an essential α-amino acid with the formula C9H11NO2. 
             It can be viewed as a benzyl group substituted for the methyl group of alanine, or a phenyl group in 

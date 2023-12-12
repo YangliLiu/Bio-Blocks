@@ -1,5 +1,7 @@
 import  {Canvas} from "@react-three/fiber";
 import {useGLTF, Stage, PresentationControls, Html} from "@react-three/drei";
+import { storage } from './firebase';
+import { ref, getDownloadURL } from 'firebase/storage';
 
 function L(props){
   const {scene} = useGLTF("/L.glb");
@@ -7,7 +9,21 @@ function L(props){
 }
 
 function LoadL({ onBackClick }) {
-
+  const handleDownloadZip = async () => {
+    try {
+      const leucineRef = ref(storage, 'leucine.zip'); // Adjust the path accordingly
+      const downloadUrl = await getDownloadURL(leucineRef);
+      const link = document.createElement('a');
+      link.href = downloadUrl;
+      link.download = 'leucine.zip';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error('Error getting download URL:', error);
+    }
+  };
+ 
     return (
       <Canvas dpr={[1,2]} shadows camera={{fov:45}} style={{"position":"absolute"}}>
         <color attach="background" args={["#BF4E6F"]}/>
@@ -27,6 +43,19 @@ function LoadL({ onBackClick }) {
                 border: 'none', // Remove border
                 cursor: 'pointer', // Add cursor pointer for better UX
         }} >Back to Amino Acid List</button>
+        <button
+            onClick={handleDownloadZip}
+            style={{
+              borderRadius: '10px',
+              padding: '10px',
+              backgroundColor: '#C61C57',
+              color: 'white',
+              border: 'none',
+              marginLeft: '10px',
+              cursor: 'pointer',
+            }}
+          >
+            Download Lego Set</button>
           <p>
             <strong>Leucine (symbol Leu or L)</strong> is an essential amino acid that is used in the biosynthesis of 
             proteins. Leucine is an α-amino acid, meaning it contains an α-amino group (which is in the protonated −NH3+ 

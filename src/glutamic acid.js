@@ -1,5 +1,7 @@
 import  {Canvas} from "@react-three/fiber";
 import {useGLTF, Stage, PresentationControls, Html} from "@react-three/drei";
+import { storage } from './firebase';
+import { ref, getDownloadURL } from 'firebase/storage';
 
 function E(props){
   const {scene} = useGLTF("/E.glb");
@@ -7,7 +9,20 @@ function E(props){
 }
 
 function LoadE({ onBackClick }) {
-
+  const handleDownloadZip = async () => {
+    try {
+      const glutamicacidRef = ref(storage, 'glutamic acid.zip'); // Adjust the path accordingly
+      const downloadUrl = await getDownloadURL( glutamicacidRef);
+      const link = document.createElement('a');
+      link.href = downloadUrl;
+      link.download = 'glutamic acid.zip';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error('Error getting download URL:', error);
+    }
+  };
     return (
       <Canvas dpr={[1,2]} shadows camera={{fov:45}} style={{"position":"absolute"}}>
         <color attach="background" args={["#7F88D5"]}/>
@@ -27,6 +42,19 @@ function LoadE({ onBackClick }) {
                 border: 'none', // Remove border
                 cursor: 'pointer', // Add cursor pointer for better UX
         }} >Back to Amino Acid List</button>
+        <button
+            onClick={handleDownloadZip}
+            style={{
+              borderRadius: '10px',
+              padding: '10px',
+              backgroundColor: '#654EBF',
+              color: 'white',
+              border: 'none',
+              marginLeft: '10px',
+              cursor: 'pointer',
+            }}
+          >
+            Download Lego Set</button>
           <p>
             <strong>Glutamic acid (symbol Glu or E, the anionic form is known as glutamate)</strong>is an α-amino acid that 
             is used by almost all living beings in the biosynthesis of proteins. It is a non-essential nutrient for humans,

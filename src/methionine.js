@@ -1,5 +1,7 @@
 import  {Canvas} from "@react-three/fiber";
 import {useGLTF, Stage, PresentationControls, Html} from "@react-three/drei";
+import { storage } from './firebase';
+import { ref, getDownloadURL } from 'firebase/storage';
 
 function M(props){
   const {scene} = useGLTF("/M.glb");
@@ -7,6 +9,20 @@ function M(props){
 }
 
 function LoadM({ onBackClick }) {
+  const handleDownloadZip = async () => {
+    try {
+      const methionineRef = ref(storage, 'methionine.zip'); // Adjust the path accordingly
+      const downloadUrl = await getDownloadURL(methionineRef);
+      const link = document.createElement('a');
+      link.href = downloadUrl;
+      link.download = 'methionine.zip';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error('Error getting download URL:', error);
+    }
+  };
 
     return (
       <Canvas dpr={[1,2]} shadows camera={{fov:45}} style={{"position":"absolute"}}>
@@ -27,6 +43,19 @@ function LoadM({ onBackClick }) {
                 border: 'none', // Remove border
                 cursor: 'pointer', // Add cursor pointer for better UX
         }} >Back to Amino Acid List</button>
+        <button
+            onClick={handleDownloadZip}
+            style={{
+              borderRadius: '10px',
+              padding: '10px',
+              backgroundColor: '#449D09',
+              color: 'white',
+              border: 'none',
+              marginLeft: '10px',
+              cursor: 'pointer',
+            }}
+          >
+            Download Lego Set</button>
           <p>
             <strong>Methionine (symbol Met or M)</strong>is an essential amino acid in humans. 
             As the precursor of other non-essential amino acids such as cysteine and taurine, 

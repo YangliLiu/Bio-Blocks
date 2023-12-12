@@ -1,5 +1,7 @@
 import  {Canvas} from "@react-three/fiber";
 import {useGLTF, Stage, PresentationControls, Html} from "@react-three/drei";
+import { storage } from './firebase';
+import { ref, getDownloadURL } from 'firebase/storage';
 
 function Y(props){
   const {scene} = useGLTF("/Y.glb");
@@ -7,7 +9,20 @@ function Y(props){
 }
 
 function LoadY({ onBackClick }) {
-
+  const handleDownloadZip = async () => {
+    try {
+      const tyrosineRef = ref(storage, 'tyrosine.zip'); // Adjust the path accordingly
+      const downloadUrl = await getDownloadURL(tyrosineRef);
+      const link = document.createElement('a');
+      link.href = downloadUrl;
+      link.download = 'tyrosine.zip';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error('Error getting download URL:', error);
+    }
+  };
     return (
       <Canvas dpr={[1,2]} shadows camera={{fov:45}} style={{"position":"absolute"}}>
         <color attach="background" args={["#3EA699"]}/>
@@ -27,6 +42,19 @@ function LoadY({ onBackClick }) {
                 border: 'none', // Remove border
                 cursor: 'pointer', // Add cursor pointer for better UX
         }} >Back to Amino Acid List</button>
+        <button
+            onClick={handleDownloadZip}
+            style={{
+              borderRadius: '10px',
+              padding: '10px',
+              backgroundColor: '#068188',
+              color: 'white',
+              border: 'none',
+              marginLeft: '10px',
+              cursor: 'pointer',
+            }}
+          >
+            Download Lego Set</button>
           <p>
             <strong>L-Tyrosine or tyrosine (symbol Tyr or Y)</strong>, or 4-hydroxyphenylalanine is one of the 
             20 standard amino acids that are used by cells to synthesize proteins. It is a non-essential amino acid 

@@ -1,5 +1,7 @@
 import  {Canvas} from "@react-three/fiber";
 import {useGLTF, Stage, PresentationControls, Html} from "@react-three/drei";
+import { storage } from './firebase';
+import { ref, getDownloadURL } from 'firebase/storage';
 
 function K(props){
   const {scene} = useGLTF("/K.glb");
@@ -7,6 +9,20 @@ function K(props){
 }
 
 function LoadK({ onBackClick }) {
+  const handleDownloadZip = async () => {
+    try {
+      const lysineRef = ref(storage, 'lysine.zip'); // Adjust the path accordingly
+      const downloadUrl = await getDownloadURL(lysineRef);
+      const link = document.createElement('a');
+      link.href = downloadUrl;
+      link.download = 'lysine.zip';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error('Error getting download URL:', error);
+    }
+  };
 
     return (
       <Canvas dpr={[1,2]} shadows camera={{fov:45}} style={{"position":"absolute"}}>
@@ -27,6 +43,19 @@ function LoadK({ onBackClick }) {
                 border: 'none', // Remove border
                 cursor: 'pointer', // Add cursor pointer for better UX
         }} >Back to Amino Acid List</button>
+        <button
+            onClick={handleDownloadZip}
+            style={{
+              borderRadius: '10px',
+              padding: '10px',
+              backgroundColor: '#C61C57',
+              color: 'white',
+              border: 'none',
+              marginLeft: '10px',
+              cursor: 'pointer',
+            }}
+          >
+            Download Lego Set</button>
           <p>
             <strong>Lysine (symbol Lys or K)</strong>is an α-amino acid that is a precursor to many proteins. 
             It contains an α-amino group (which is in the protonated −NH+3 form under biological conditions), 
