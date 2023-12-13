@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSpring, animated } from 'react-spring';
 import './App.css';
+// Import individual amino acid components
 import LoadA from './alanine';
 import LoadR from './arginine';
 import LoadN from './asparagine';
@@ -22,7 +23,7 @@ import LoadW from './tryptophan';
 import LoadY from './tyrosine';
 import LoadV from './valine ';
 
-
+// Define an array of image URLs for each amino acid
 const images = [
   '/alanine.png',
   '/arginine.png',
@@ -49,6 +50,7 @@ const images = [
 const imagesPerPage = 4;
 const totalPages = Math.ceil(images.length / imagesPerPage);
 
+// Define the main App component
 const App = () => {
   const [scrollY, setScrollY] = useState(0);
   const [darkScreen, setDarkScreen] = useState(true);
@@ -77,8 +79,7 @@ const App = () => {
   const [loadTyrosine, setLoadTyrosine] = useState(false);
   const [loadValine, setLoadValine] = useState(false);
   
-  
-
+  // useEffect to handle initial animation when the component mounts
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       setDarkScreen(false);
@@ -88,6 +89,7 @@ const App = () => {
     return () => clearTimeout(timeoutId);
   }, []);
 
+  // useEffect to handle scrolling behavior
   useEffect(() => {
     const handleScroll = (event) => {
       const delta = event.deltaY;
@@ -98,14 +100,14 @@ const App = () => {
         window.scrollTo({ top: (newPage - 1) * window.innerHeight, behavior: 'smooth' });
       }
     };
-
+    // Add event listener for scrolling
     window.addEventListener('wheel', handleScroll);
 
     return () => {
       window.removeEventListener('wheel', handleScroll);
     };
   }, [currentPage]);
-
+  // Animation configuration
   const titleAnimation = useSpring({
     opacity: showTitle ? 1 : 0,
     transform: `translate3d(0, ${showTitle ? 0 : -50}px, 0)`,
@@ -114,7 +116,7 @@ const App = () => {
   const imageGridAnimation = useSpring({
     opacity: showImages ? 1 : 0,
   });
-
+  // Function to handle image click
   const handleImageClick = (index) => {
     setSelectedImageIndex(index);
     if (index === 0) {
@@ -197,10 +199,9 @@ const App = () => {
       setLoadValine(true);
       setShowTitle(false);
     }
-   
-    
   };
   
+  // Function to handle going back to the amino acid list
   const handleBackToAminoAcidList = () => {
     setLoadAlanine(false);
     setLoadArginine(false);
@@ -226,9 +227,9 @@ const App = () => {
     setShowTitle(true);
     setSelectedImageIndex(null);
   };
-
+ 
   useEffect(() => {
-    // Show images 2 seconds after the title appears
+    // Show images 1 seconds after the title appears
     if (showTitle) {
       const timeoutId = setTimeout(() => {
         setShowImages(true);
@@ -249,13 +250,13 @@ const App = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
-
+   // Render the main component structure
   return (
     <div className={`app-container ${darkScreen ? 'dark-screen' : ''}`}>
       <animated.h1 style={titleAnimation} className="title">
         Bio Blocks
       </animated.h1>
-
+      
       <animated.div style={imageGridAnimation} className="image-grid">
         {showTitle && !loadAlanine && !loadArginine && !loadAsparagine && !loadAsparticacid && !loadCysteine 
         && !loadGlutamine && !loadGlutamicacid && !loadGlycine && !loadHistidine && !loadIsoleucine
@@ -300,4 +301,5 @@ const App = () => {
   );
 };
 
+// Export the App component as the default export
 export default App;

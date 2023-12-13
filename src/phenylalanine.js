@@ -29,12 +29,12 @@ function LoadF({ onBackClick }) {
         <color attach="background" args={["#88A52D"]}/>
         <PresentationControls speed={1.5} global zoom={.5} polar={[-0.1, Math.PI/4]}>
           <Stage environment={"sunset"}>
-            <F scale={0.56} />
+            <F scale={0.55} />
           </Stage>
         </PresentationControls>
 
         <Html position={[0, 0, 0]}>
-        <div style={{ position: 'absolute', top: 160, left: 460, width: '450px', height: '300px', color: 'white' }}>
+        <div style={{ position: 'absolute', top: 100, left: 420, width: '360px', height: '300px', color: 'white' }}>
         <button onClick={onBackClick} style={{
                 borderRadius: '10px', // Adjust the value to control the roundness of the corners
                 padding: '10px', // Add padding for better aesthetics

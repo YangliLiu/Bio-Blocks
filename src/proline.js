@@ -34,7 +34,7 @@ function LoadP({ onBackClick }) {
         </PresentationControls>
 
         <Html position={[0, 0, 0]}>
-        <div style={{ position: 'absolute', top: 100, right: 400, width: '450px', height: '300px', color: 'white' }}>
+        <div style={{ position: 'absolute', top: 100, right: 340, width: '450px', height: '300px', color: 'white' }}>
         <button onClick={onBackClick} style={{
                 borderRadius: '10px', // Adjust the value to control the roundness of the corners
                 padding: '10px', // Add padding for better aesthetics

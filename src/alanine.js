@@ -3,17 +3,19 @@ import {useGLTF, Stage, PresentationControls, Html} from "@react-three/drei";
 import { storage } from './firebase';
 import { ref, getDownloadURL } from 'firebase/storage';
 
+// A component that represents the 3D model for Alanine (A.glb is a valid GLB file)
 function A(props){
   const {scene} = useGLTF("/A.glb");
   return <primitive object={scene}{...props}/>
 }
 
+// LoadA component to display a 3D model of Alanine along with additional information
 function LoadA({ onBackClick }) {
   const handleDownloadZip = async () => {
     try {
       const alanineRef = ref(storage, 'alanine.zip'); // Adjust the path accordingly
       const downloadUrl = await getDownloadURL(alanineRef);
-      const link = document.createElement('a');
+      const link = document.createElement('a');  // Create a link element and trigger a download
       link.href = downloadUrl;
       link.download = 'alanine.zip';
       document.body.appendChild(link);
@@ -23,18 +25,18 @@ function LoadA({ onBackClick }) {
       console.error('Error getting download URL:', error);
     }
   };
-
+    // Render the component
     return (
       <Canvas dpr={[1,2]} shadows camera={{fov:45}} style={{"position":"absolute"}}>
         <color attach="background" args={["#4792CC"]}/>
         <PresentationControls speed={1.5} global zoom={.5} polar={[-0.1, Math.PI/4]}>
           <Stage environment={"sunset"}>
-            <A scale={0.7} />
+            <A scale={0.66} />
           </Stage>
         </PresentationControls>
 
         <Html position={[0, 0, 0]}>
-        <div style={{ position: 'absolute', top: -400, left: 460, width: '450px', height: '300px', color: 'white' }}>
+        <div style={{ position: 'absolute', top: -360, left: 450, width: '360px', height: '300px', color: 'white' }}>
         <button onClick={onBackClick} style={{
                 borderRadius: '10px', // Adjust the value to control the roundness of the corners
                 padding: '10px', // Add padding for better aesthetics
