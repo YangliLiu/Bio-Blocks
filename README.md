@@ -22,7 +22,7 @@ allowing users to download customized Lego-style pieces for hands-on learning an
 ```
 $ git clone https://github.com/YangliLiu/Bio-Blocks
 ```
-2. Install required packages from 'requirements.txt'
+2. Install required packages 
 ```
 $ pip install @react-three/fiber @react-three/drei firebase
 ```
